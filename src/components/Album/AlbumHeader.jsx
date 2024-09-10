@@ -30,7 +30,6 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
     width: 15vw;
     box-shadow: 0 0 20rem rgba(0, 0, 0);
-    /* max-height: 25rem; */
 `
 
 const InfoWrapper = styled.div`
@@ -43,7 +42,7 @@ const InfoWrapper = styled.div`
 const Title = styled.p`
     display: inline-block;
     width: fit-content;
-    font-size: calc(10px + 1.8vw); /* Dynamically scales font size */
+    font-size: calc(10px + 1.8vw);
     line-height: .9;
     color: #fff;
     margin-bottom: 1rem;
@@ -102,7 +101,7 @@ const Release = styled.p`
 `
 
 function AlbumHeader() {
-    const {Album: {data},Favorites: {albumIDs,setChangedAlbums}} = useStore();
+    const {Album: {data},Favorites: {albumIDs,setChangedAlbums}, User: {guest}} = useStore();
     const [color,setColor] = useState("");
     const navigate = useNavigate();
     const WrapperRef = useRef(null);
@@ -154,9 +153,11 @@ function AlbumHeader() {
         <Wrapper ref={WrapperRef} style={{background: `linear-gradient( ${color}, #0b090a)`}}>
             <ImageWrapper>
                 <Image src={data?.image} />
+                {!guest && 
                 <Like onClick={() => handleFavorite(data?.id)}>
                     {albumIDs && albumIDs.includes(data?.id) ? <FaHeart /> : <FaRegHeart />}
                 </Like>
+                }
             </ImageWrapper>
             <InfoWrapper>
                 <Title>{data?.name}</Title>

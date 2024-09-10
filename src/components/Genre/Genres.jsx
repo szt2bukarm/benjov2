@@ -81,7 +81,6 @@ function Genres() {
             {genres && genres.map((genre,index) => (
                 <Genre key={genre} onClick={() => handleClick(genre)} ref={(el) => GenreRef.current[index] = el}>{genre}</Genre>
             ))}
-            {/* <GenreTracks /> */}
             </GenreWrapper>
         </Wrapper>
     )

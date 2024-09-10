@@ -118,12 +118,17 @@ function Navbar() {
         setSearchOpen(newQuery.length > 0);
         fetchSearchData(newQuery);
     }
+    
+    const handleSidebarClick = () => {
+        setShowSidebar(!showSidebar);
+        setSearchOpen(false);
+    }
 
     return (
         <Wrapper>
-            <SidebarButton className="border" onClick={() => setShowSidebar(!showSidebar)}>{showSidebar ? <IoClose /> : <GiHamburgerMenu /> }</SidebarButton>
+            <SidebarButton className="border" onClick={handleSidebarClick}>{showSidebar ? <IoClose /> : <GiHamburgerMenu /> }</SidebarButton>
             <SearchWrapper className="border">
-                <SearchInput onChange={(e) => handleSearch(e)} value={searchQuery} onClick={() => searchQuery.length > 0 ? setSearchOpen(true) : setSearchOpen(false)} placeholder="Type here to search"/>
+                <SearchInput onChange={(e) => handleSearch(e)} value={searchQuery} onClick={() => {searchQuery.length > 0 ? setSearchOpen(true) : setSearchOpen(false); setShowSidebar(false)}} placeholder="Type here to search"/>
                 <SearchIcon />
                 <TransitionGroup>
                 <CSSTransition key={searchOpen} timeout={80} classNames="fade">

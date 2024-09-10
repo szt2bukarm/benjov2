@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { FaUserAlt, FaKey, FaSpotify } from "react-icons/fa";
+import LoaderInline from "../Player/LoaderInline";
 import useAuthFetcher from "../../services/AuthFetcher";
 import useStore from "../../store";
 import { useEffect } from "react";
@@ -72,10 +73,18 @@ const Button = styled.button`
   }
 `;
 
+const LoaderWrapper = styled.div`
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+`
+
 const Warn = styled.p`
   font-size: 1.4rem;
   color: #ff4d4d;
-  /* margin-top: 0.5rem; */
 `;
 
 const Column = styled.form`
@@ -87,11 +96,12 @@ const Column = styled.form`
 
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { Auth: {error}} = useStore();
+  const { Auth: {error,loading,setError}} = useStore();
   const { loginUser } = useAuthFetcher();
 
   useEffect(() => {
       localStorage.clear();
+      setError(null)
   },[])
 
   const onSubmit = (data) => {
@@ -106,6 +116,7 @@ function Login() {
         <InputWrapper className="border">
           <InputIcon><FaUserAlt /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("username", { required: "Please enter a username" })} 
             placeholder="Username" 
           />
@@ -115,6 +126,7 @@ function Login() {
         <InputWrapper className="border">
           <InputIcon><FaKey /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("password", { required: "Please enter a password" })} 
             type="password" 
             placeholder="Password" 
@@ -122,7 +134,15 @@ function Login() {
         </InputWrapper>
         {errors.password && <Warn>{errors.password.message}</Warn>}
 
-        <Button type="submit" className="border">LOGIN</Button>
+        {loading ? 
+          <LoaderWrapper>
+          <LoaderInline />
+          </LoaderWrapper>
+            : 
+        <Button type="submit" className="border" disabled={loading}>LOGIN</Button>
+        }
+
+        {/* <Button type="submit" className="border" disabled={loading}></Button> */}
         {error && <Warn>{error}</Warn>}
       </Column>
     </Wrapper>

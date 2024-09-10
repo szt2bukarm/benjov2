@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     width: 25rem;
     padding: 3.5rem;
     overflow-y: scroll;
-    z-index: 99;
+    z-index: 8;
     transition: 150ms;
 
     @media (max-width: 1500px) {
@@ -137,58 +137,69 @@ const IndexingText = styled.p`
 `
 
 function Sidebar() {
-    const {User: {username},Music:{searching}, Sidebar: {showSidebar,setShowSidebar}} = useStore();
+    const {User: {username},Music:{searching}, Sidebar: {showSidebar,setShowSidebar},Search: {setSearchOpen},User: {guest}} = useStore();
     const { signOutUser } = useAuthFetcher();
 
     const handleLogOut = () => {
         signOutUser();
     }
 
+    const handleClick = () => {
+        setSearchOpen(false);
+        setShowSidebar(false);
+    }
+
     return (
-        <Wrapper style={{left: showSidebar ? 0 : '-100%'}}>
+        <Wrapper style={{left: showSidebar ? 0 : '-100%'}} onClick={() => {setSearchOpen(false)}}>
             <Logo>Benjo</Logo>
             <Subheader>MENU</Subheader>
             {/* <Scrollable> */}
             <MenuItemWrapper>
-                <MenuItem to={"/"} activeClassName="active" onClick={() => setShowSidebar(false)}> 
+                <MenuItem to={"/"} activeClassName="active" onClick={handleClick}> 
                     <MenuItemIcon className="menu-item"><MdExplore /></MenuItemIcon>
                     <MenuItemText className="menu-item">Explore</MenuItemText>
                     <Highlight className="highlight"/>
                 </MenuItem>
-                <MenuItem to={"/genres"} activeClassName="active" onClick={() => setShowSidebar(false)}> 
+                <MenuItem to={"/genres"} activeClassName="active" onClick={handleClick}> 
                     <MenuItemIcon className="menu-item"><PiMusicNoteFill /></MenuItemIcon>
                     <MenuItemText className="menu-item">Genres</MenuItemText>
                     <Highlight className="highlight"/>
 
                 </MenuItem>
-                <MenuItem to={"/toptracks"} activeClassName="active" onClick={() => setShowSidebar(false)}> 
+                <MenuItem to={"/toptracks"} activeClassName="active" onClick={handleClick}> 
                     <MenuItemIcon className="menu-item"><MdShowChart /></MenuItemIcon>
                     <MenuItemText className="menu-item">Top Tracks</MenuItemText>
                     <Highlight className="highlight"/>
-
+                </MenuItem>
+                <MenuItem to={"/playlists"} activeClassName="active" onClick={handleClick}> 
+                    <MenuItemIcon className="menu-item"><BiSolidPlaylist /></MenuItemIcon>
+                    <MenuItemText className="menu-item">Playlists</MenuItemText>
+                    <Highlight className="highlight"/>
                 </MenuItem>
             </MenuItemWrapper>
-            <Subheader>LIBRARY</Subheader>
+
+            {!guest && <>
+                <Subheader>LIBRARY</Subheader>
             <MenuItemWrapper>
-                <MenuItem activeClassName="active" to={"/recents"} onClick={() => setShowSidebar(false)}>
+                <MenuItem activeClassName="active" to={"/recents"} onClick={handleClick}>
                     <MenuItemIcon className="menu-item"><IoTime /></MenuItemIcon>
                     <MenuItemText className="menu-item">Recently Played</MenuItemText>
                     <Highlight className="highlight"/>
 
                 </MenuItem>
-                <MenuItem activeClassName="active" to={"/likedtracks"}  onClick={() => setShowSidebar(false)}>
+                <MenuItem activeClassName="active" to={"/likedtracks"}  onClick={handleClick}>
                     <MenuItemIcon className="menu-item"><TiHeartFullOutline /></MenuItemIcon>
                     <MenuItemText className="menu-item">Liked Tracks</MenuItemText>
                     <Highlight className="highlight"/>
 
                 </MenuItem>
-                <MenuItem activeClassName="active" to={"/likedalbums"}  onClick={() => setShowSidebar(false)}>
+                <MenuItem activeClassName="active" to={"/likedalbums"}  onClick={handleClick}>
                     <MenuItemIcon className="menu-item"><IoMdAlbums /></MenuItemIcon>
                     <MenuItemText className="menu-item">Liked Albums</MenuItemText>
                     <Highlight className="highlight"/>
 
                 </MenuItem>
-                <MenuItem activeClassName="active" to={"/myplaylists"}  onClick={() => setShowSidebar(false)}>
+                <MenuItem activeClassName="active" to={"/myplaylists"}  onClick={handleClick}>
                     <MenuItemIcon className="menu-item"><BiSolidPlaylist /></MenuItemIcon>
                     <MenuItemText className="menu-item">My Playlists</MenuItemText>
                     <Highlight className="highlight"/>
@@ -196,12 +207,14 @@ function Sidebar() {
             </MenuItemWrapper>
             <Subheader>ACCOUNT</Subheader>
             <MenuItemWrapper>
-                <MenuItem activeClassName="active" to={"/settings"}  onClick={() => setShowSidebar(false)}>
+                <MenuItem activeClassName="active" to={"/settings"}  onClick={handleClick}>
                     <MenuItemIcon className="menu-item"><IoCog /></MenuItemIcon>
                     <MenuItemText className="menu-item">Settings</MenuItemText>
                     <Highlight className="highlight"/>
                 </MenuItem>
             </MenuItemWrapper>
+            </>}
+
             {/* </Scrollable> */}
             {searching && <IndexingWrapper>
                 <LoaderInline />
@@ -211,7 +224,7 @@ function Sidebar() {
             <Account style={{marginTop: searching  ? "3rem" : "auto"}}>
                 <Column>
                     <SubheaderNoSpacing>SIGNED IN AS:</SubheaderNoSpacing>
-                    <Username>{username}</Username>
+                    <Username>{username ? username : "Guest"}</Username>
                 </Column>
                 <SignOut onClick={handleLogOut}/>
             </Account>

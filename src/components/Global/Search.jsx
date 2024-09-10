@@ -19,6 +19,8 @@ const Wrapper = styled.div`
     height: 0;
     width: 100%;
     background-color: #161a1d;
+    overflow-x: visible;
+
 `
 
 const InnerWrapper = styled.div`

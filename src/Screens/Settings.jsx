@@ -4,6 +4,7 @@ import { FaUserAlt, FaKey, FaSpotify } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import useStore from "../store";
 import useAuthFetcher from "../services/AuthFetcher";
+import { useEffect } from "react";
 
 
 const Wrapper = styled.div`
@@ -78,9 +79,13 @@ const Warn = styled.p`
 
 function Settings() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { Auth: {error}} = useStore();
+    const { Auth: {error,setError}} = useStore();
     const { updateAccess } = useAuthFetcher();
   
+    useEffect(() => {
+        setError(null)
+    }, [])
+
     const onSubmit = (data) => {
         updateAccess(data);
       };

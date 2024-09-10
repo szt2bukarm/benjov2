@@ -16,10 +16,10 @@ const Spinner = styled.div`
   }
 `
 
-function Loader() {
+function LoaderInline() {
     return (
         <Spinner />
     )
 }
 
-export default Loader
+export default LoaderInline

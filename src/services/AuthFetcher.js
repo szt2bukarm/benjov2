@@ -3,16 +3,18 @@ import useStore from '../store';
 import { apiLink } from './config';
 
 const useAuthFetcher = () => {
-    const { setError, setLoggedIn, setUsername } = useStore((state) => ({
+    const { setError, setLoggedIn, setUsername, setLoading } = useStore((state) => ({
         setError: state.Auth.setError,
         setLoggedIn: state.User.setLoggedIn,
         setUsername: state.User.setUsername,
+        setLoading: state.Auth.setLoading
       }));    
       const {APICheck: {setStatus}} = useStore();
 
     const registerUser = useCallback(async (user) => {
       localStorage.clear();
         try {
+          setLoading(true);
         const resp = await fetch(apiLink + '/user/signup' , {
           method: 'POST',
           headers: {
@@ -31,14 +33,14 @@ const useAuthFetcher = () => {
         localStorage.setItem("token", data.token);
         if (data.status === "fail" || data.status === "error") {
           setError(data.message);
+          setLoading(false);
         }
         if (data.status == "success") {
           console.log(data.token);
           setLoggedIn(true);
           setUsername(user.username);
+          setLoading(false);
         }
-
-
     } catch (err) {
         console.log(err);
       }
@@ -47,6 +49,7 @@ const useAuthFetcher = () => {
     const loginUser = useCallback(async (user) => {
       localStorage.clear();
         try {
+          setLoading(true);
         const resp = await fetch(apiLink + '/user/login' , {
           method: 'POST',
           headers: {
@@ -64,11 +67,13 @@ const useAuthFetcher = () => {
         console.log(data);
         if (data.status === "fail" || data.status === "error") {
           setError(data.message);
+          setLoading(false);
         }
         if (data.status == "success") {
           setLoggedIn(true);
           setUsername(user.username);
           localStorage.setItem("token", data.token);
+          setLoading(false);
         }
 
     } catch (err) {

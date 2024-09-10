@@ -7,18 +7,30 @@ const useStore = create(
       User: {
         loggedIn: false,
         username: null,
+        guest: false,
         setLoggedIn: (loggedIn) =>
           set((state) => ({ User: { ...state.User, loggedIn } })),
         setUsername: (username) =>
           set((state) => ({ User: { ...state.User, username } })),
+        setGuest: (guest) =>
+          set((state) => ({ User: { ...state.User, guest } })),
       },
       Auth: {
+        guest: false,
         error: null,
         showLogin: false,
+        showGuide: false,
+        loading: false,
+        setGuide: (showGuide) =>
+          set((state) => ({ Auth: { ...state.Auth, showGuide } })),
         setError: (error) =>
           set((state) => ({ Auth: { ...state.Auth, error } })),
         setShowLogin: (showLogin) =>
-          set((state) => ({ Auth: { ...state.Auth, showLogin } }))
+          set((state) => ({ Auth: { ...state.Auth, showLogin } })),
+        setLoading: (loading) =>
+          set((state) => ({ Auth: { ...state.Auth, loading } })),
+        setGuest: (guest) =>
+          set((state) => ({ Auth: { ...state.Auth, guest } })),
       },
       Music: {
         searching: false,
@@ -226,6 +238,54 @@ const useStore = create(
         setShowSidebar: (showSidebar) =>
           set((state) => ({ Sidebar: { ...state.Sidebar, showSidebar } })),
       },
+      Playlists: {
+        id: null,
+        name: null,
+        username: null,
+        trackNo: null,
+        tracks: null,
+        isPublic: false,  
+        showCreatePlaylist: false,
+        showAddToPlaylist: false,
+        addToPlaylistID: null,
+        addToPlaylistTitle: null,
+        addToPlaylistLoading: false,
+        addToPlaylistMessage: null,
+        playlists: null,
+        publicPlaylists: null,
+        loadingPlaylistData: false,
+        loading: false,
+        setPublicPlaylists: (publicPlaylists) =>
+          set((state) => ({ Playlists: { ...state.Playlists, publicPlaylists } })),
+        setLoading: (loading) =>
+          set((state) => ({ Playlists: { ...state.Playlists, loading } })),
+        setLoadingPlaylistData: (loadingPlaylistData) =>
+          set((state) => ({ Playlists: { ...state.Playlists, loadingPlaylistData } })),
+        setPlaylists: (playlists) =>
+          set((state) => ({ Playlists: { ...state.Playlists, playlists } })),
+        setShowCreatePlaylist: (showCreatePlaylist) =>
+          set((state) => ({ Playlists: { ...state.Playlists, showCreatePlaylist } })),
+        setID: (id) => set((state) => ({ Playlists: { ...state.Playlists, id } })),
+        setName: (name) => set((state) => ({ Playlists: { ...state.Playlists, name } })),
+        setUsername: (username) =>
+          set((state) => ({ Playlists: { ...state.Playlists, username } })),
+        setTracks: (tracks) =>
+          set((state) => ({ Playlists: { ...state.Playlists, tracks } })),
+        setIsPublic: (isPublic) =>
+          set((state) => ({ Playlists: { ...state.Playlists, isPublic } })),        
+        setTrackNo: (trackNo) =>
+          set((state) => ({ Playlists: { ...state.Playlists, trackNo } })),
+        setShowAddToPlaylist: (showAddToPlaylist) =>
+          set((state) => ({ Playlists: { ...state.Playlists, showAddToPlaylist } })),
+        setAddToPlaylistID: (addToPlaylistID) =>
+          set((state) => ({ Playlists: { ...state.Playlists, addToPlaylistID } })),
+        setAddToPlaylistTitle: (addToPlaylistTitle) =>
+          set((state) => ({ Playlists: { ...state.Playlists, addToPlaylistTitle } })),
+        setAddToPlaylistLoading: (addToPlaylistLoading) =>
+          set((state) => ({ Playlists: { ...state.Playlists, addToPlaylistLoading } })),
+        setAddToPlaylistMessage: (addToPlaylistMessage) =>
+          set((state) => ({ Playlists: { ...state.Playlists, addToPlaylistMessage } })),
+      },
       APICheck: {
         status: false,
         setStatus: (status) =>
@@ -238,6 +298,7 @@ const useStore = create(
         User: {
           loggedIn: state.User.loggedIn,
           username: state.User.username,
+          guest: state.User.guest
         }
       }),
     }

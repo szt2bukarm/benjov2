@@ -4,6 +4,7 @@ import { FaUserAlt, FaKey, FaSpotify } from "react-icons/fa";
 import useAuthFetcher from "../../services/AuthFetcher";
 import useStore from "../../store";
 import { useEffect } from "react";
+import LoaderInline from "../Player/LoaderInline";
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,10 +74,18 @@ const Button = styled.button`
   }
 `;
 
+const LoaderWrapper = styled.div`
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+`
+
 const Warn = styled.p`
   font-size: 1.4rem;
   color: #ff4d4d;
-  /* margin-top: 0.5rem; */
 `;
 
 const Column = styled.form`
@@ -86,13 +95,18 @@ const Column = styled.form`
   gap: 1rem;
 `;
 
+const Info = styled.div`
+  
+`
+
 function Register() {
   const { register, handleSubmit, setError, formState: { errors } } = useForm();
-  const { Auth: {error}, User: {loggedIn}} = useStore();
+  const { Auth: {error,setError: setAuthError,loading}, User: {loggedIn}} = useStore();
   const { registerUser } = useAuthFetcher();
 
     useEffect(() => {
         localStorage.clear();
+        setAuthError(null)
     },[])
 
   const onSubmit = (data) => {
@@ -100,6 +114,22 @@ function Register() {
       setError("password2", {
         type: "manual",
         message: "Passwords don't match",
+      });
+      return;
+    }
+
+    if (data.username.length < 4 || data.username.length > 15) {
+      setError("username", {
+        type: "manual",
+        message: "Username must be between 4 and 15 characters",
+      });
+      return;
+    }
+
+    if (data.password.length < 5 || data.password2.length < 5) {
+      setError("password", {
+        type: "manual",
+        message: "Password must be at least 5 characters",
       });
       return;
     }
@@ -115,6 +145,7 @@ function Register() {
         <InputWrapper className="border">
           <InputIcon><FaUserAlt /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("username", { required: "Please enter a username" })} 
             placeholder="Username" 
           />
@@ -124,6 +155,7 @@ function Register() {
         <InputWrapper className="border">
           <InputIcon><FaKey /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("password", { required: "Please enter a password" })} 
             type="password" 
             placeholder="Password" 
@@ -134,6 +166,7 @@ function Register() {
         <InputWrapper className="border">
           <InputIcon><FaKey /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("password2", { required: "Please confirm your password" })} 
             type="password" 
             placeholder="Password again" 
@@ -144,6 +177,7 @@ function Register() {
         <InputWrapper className="border">
           <InputIcon><FaSpotify /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("clientID", { required: "Please enter a Spotify Client ID" })} 
             placeholder="Spotify Client ID" 
           />
@@ -153,13 +187,20 @@ function Register() {
         <InputWrapper className="border">
           <InputIcon><FaSpotify /></InputIcon>
           <Input 
+            disabled={loading}
             {...register("clientSecret", { required: "Please enter a Spotify Client Secret" })} 
             placeholder="Spotify Client Secret" 
           />
         </InputWrapper>
         {errors.clientSecret && <Warn>{errors.clientSecret.message}</Warn>}
 
-        <Button type="submit" className="border">REGISTER</Button>
+        {loading ? 
+          <LoaderWrapper>
+          <LoaderInline />
+          </LoaderWrapper>
+            : 
+        <Button type="submit" className="border" disabled={loading}>REGISTER</Button>
+        }
         {error && <Warn>{error}</Warn>}
       </Column>
     </Wrapper>

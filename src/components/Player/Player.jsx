@@ -137,6 +137,7 @@ function Player() {
   const onReady = (event) => {
     playerRef.current = event.target;
     setPlayerReady(true);
+    playerRef.current.setVolume(50);
     };
 
   useEffect(() => {
@@ -184,10 +185,11 @@ function Player() {
 
   const playNext = () => {
     const currentIndex = Array.from(Object.values(tracks)).findIndex((track) => track.trackID === spotifyID);
-  
+    console.log(currentIndex);
     const nextIndex = currentIndex + 1;
     const nextTrack = tracks[nextIndex];
-
+    console.log(tracks);
+    console.log(nextTrack);
     setImage(nextTrack.image);
     setArtist(nextTrack.artists.length > 1 ? nextTrack.artists[0].name : nextTrack.artists.name);
     setTitle(nextTrack.trackName);
@@ -231,9 +233,9 @@ function Player() {
           <PlayerButton disabled={actionsBlocked} onClick={playNext}><MdSkipNext /></PlayerButton>
         </TrackControls>
 
-        <Timestamp>{new Date(+Math.floor(currentTime * 1000).toString()).toISOString().slice(14, 19)}</Timestamp>
+        <Timestamp>{new Date(+Math.floor(currentTime * 1000).toString()).toISOString().slice(14, 19) || 0}</Timestamp>
         <Slider type="range" min={0} max={maxDuration} value={currentTime} onChange={(e) => seekTo(e.target.value)} />
-        <Timestamp>{new Date(+Math.floor(maxDuration * 1000).toString()).toISOString().slice(14, 19)}</Timestamp>
+        <Timestamp>{new Date(+Math.floor(maxDuration * 1000).toString()).toISOString().slice(14, 19) || 0}</Timestamp>
 
         {playerReady && <VolumeWrapper>
           <PlayerButton onClick={muteVolume}>

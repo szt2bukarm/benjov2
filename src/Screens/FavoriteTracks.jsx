@@ -30,6 +30,7 @@ function FavoriteTracks() {
 
 
     useEffect(() => {
+        if (!tracksRef.current) return;
         if (tracksRef?.current) {
             gsap.set([tracksRef.current] , {
                 opacity: 0,

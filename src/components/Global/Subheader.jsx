@@ -6,7 +6,8 @@ const Text = styled.p`
     letter-spacing: 1px;
     font-weight: 400;
     color: #d3d3d3;
-    width: max-content;
+    /* width: max-content; */
+    word-break: break-all;
     margin-bottom: 1rem;
 `
 

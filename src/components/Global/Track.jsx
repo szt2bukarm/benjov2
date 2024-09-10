@@ -5,8 +5,7 @@ import { forwardRef } from "react";
 import { FaRegHeart,FaHeart } from "react-icons/fa";
 import useFavoritesFetcher from "../../services/favoritesFetcher";
 import { BiAddToQueue } from "react-icons/bi";
-import useMusicFetcher from "../../services/musicFetcher";
-import useLyricsFetcher from "../../services/lyricsFetcher";
+import { RiPlayListAddLine } from "react-icons/ri";
 
 const Wrapper = styled.div`
     display: flex;
@@ -63,7 +62,7 @@ const Duration = styled.p`
   /* margin-left: auto; */
 `;
 
-const Like = styled.div`
+const Action = styled.div`
   /* margin-left: auto; */
   position: relative;
   margin-right: 2rem;
@@ -81,23 +80,22 @@ const Like = styled.div`
   }
 `
 
-const AddToQueue = styled.div`
-  position: relative;
-  margin-left: auto;
-  margin-right: 2rem;
-  font-size: 2rem;
-  color: #fff;
-  cursor: pointer;
-  transform: translateY(2px);
+// const Action = styled.div`
+//   position: relative;
+//   margin-right: 2rem;
+//   font-size: 2rem;
+//   color: #fff;
+//   cursor: pointer;
+//   transform: translateY(2px);
 
-  &:hover {
-    color: #c6c6c6;
-  }
+//   &:hover {
+//     color: #c6c6c6;
+//   }
 
-  &:hover .text {
-    opacity: 1;
-  }
-`
+//   &:hover .text {
+//     opacity: 1;
+//   }
+// `
 
 const TextWrapper = styled.div`
     position: absolute;
@@ -118,6 +116,12 @@ const TextWrapper = styled.div`
     transition: all .1s;
 `
 
+const Actions = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+`
+
 const Text = styled.p`
     color: white;
     font-size: 1.2rem;
@@ -126,13 +130,21 @@ const Text = styled.p`
 
 const Track = forwardRef(({ index,trackToSet,fromSearch = false, image, id, title, artists, duration, albumID, albumName, artistID }, ref) => {
     const { Music: { spotifyID,setImage,setArtist,setTitle,setDuration,setAlbum,setAlbumID,setSpotifyID,setArtistID, }
-    , Favorites: { trackIDs,setChangedTracks }, Tracklist: {tracks,setTracks},Lyrics: {setLyrics}, Player: {setLyricsScrolled} } = useStore();
+    , Favorites: { trackIDs,setChangedTracks }, Tracklist: {tracks,setTracks},Lyrics: {setLyrics}, Player: {setLyricsScrolled},
+    User: {guest},
+    Playlists: {setShowAddToPlaylist,setAddToPlaylistID,setAddToPlaylistTitle} } = useStore();
     const { addFavoriteTrack } = useFavoritesFetcher();
-    const { fetchMusicData } = useMusicFetcher();
-    const { fetchLyricsData } = useLyricsFetcher();
 
     const handleClick = () => {
       if (spotifyID == id) return;
+      console.log(image);
+      console.log(artists);
+      console.log(title);
+      console.log(duration);
+      console.log(albumName);
+      console.log(albumID);
+      console.log(id);
+      console.log(artistID);
   
       setImage(image);
       setArtist(artists.length > 1 ? artists[0].name : artists.name);
@@ -168,6 +180,13 @@ const Track = forwardRef(({ index,trackToSet,fromSearch = false, image, id, titl
         e.stopPropagation();
         setChangedTracks(true)
         addFavoriteTrack(id);
+    }
+
+    const handlePlaylist = (e, id, name) => {
+        e.stopPropagation();
+        setShowAddToPlaylist(true);
+        setAddToPlaylistID(id);
+        setAddToPlaylistTitle(name);
     }
 
     const handleQueue = (e, id) => {
@@ -232,17 +251,32 @@ const Track = forwardRef(({ index,trackToSet,fromSearch = false, image, id, titl
             )}
           </ArtistWrapper>
         </InfoWrapper>
+        
+        <Actions>
+          {!guest &&
+            <Action onClick={(e) => {handlePlaylist(e,id,title)}}>
+                <RiPlayListAddLine />
+                <TextWrapper className="text"><Text>Add To Playlist</Text></TextWrapper>
+            </Action>
+            }
+
+
         {tracks &&         
-        <AddToQueue onClick={(e) => {handleQueue(e,id)}}>
+        <Action onClick={(e) => {handleQueue(e,id)}}>
           <BiAddToQueue />
           <TextWrapper className="text"><Text>Add To Queue</Text></TextWrapper>
-        </AddToQueue>}
+        </Action>}
 
-        <Like onClick={(e) => {handleFavorite(e,id)}} style={{marginLeft: tracks ? "0" : "auto"}}>
-          {trackIDs?.includes(id) ? <FaHeart /> : <FaRegHeart />}
-          <TextWrapper className="text"><Text>{trackIDs?.includes(id) ? "Remove From Favorites" : "Add To Favorites"}</Text></TextWrapper>
-          </Like>
+
+        {!guest && 
+            <Action onClick={(e) => {handleFavorite(e,id)}}>
+            {trackIDs?.includes(id) ? <FaHeart /> : <FaRegHeart />}
+            <TextWrapper className="text"><Text>{trackIDs?.includes(id) ? "Remove From Favorites" : "Add To Favorites"}</Text></TextWrapper>
+            </Action>
+      }
+
         <Duration>{new Date(duration).toISOString().slice(14, 19)}</Duration>
+        </Actions>
       </Wrapper>
     );
   });
