@@ -1800,7 +1800,11 @@ font-size: 3rem;
     width: 50rem;
     height: 50rem;
     background-color: #161a1d;
-`,bM=C(ve)`
+`,bM=C.div`
+    overflow-y: scroll;
+    height: 90%;
+    width: 100%;
+`,SM=C(ve)`
     position: absolute;
     bottom: 1rem;
     right: 2rem;
@@ -1813,14 +1817,14 @@ font-size: 3rem;
     color: white;
     text-decoration: underline;
   }
-`,SM=C.p`
+`,_M=C.p`
     position: absolute;
     left: 2rem;
     bottom: 2rem;
     font-size: 1.6rem;
     color: #c6c6c6;
     margin-left: auto;
-`;function _M(){const{Playlists:{playlists:e,showAddToPlaylist:t,setShowAddToPlaylist:r,addToPlaylistID:n,addToPlaylistTitle:i,addToPlaylistLoading:o,addToPlaylistMessage:a,setAddToPlaylistMessage:s}}=Q();return h.jsx(Hr,{children:h.jsx(Gr,{timeout:300,classNames:"fade",children:t?h.jsx(xM,{children:o?h.jsx(Pt,{}):h.jsx(h.Fragment,{children:h.jsxs(wM,{className:"border",children:[h.jsxs(ve,{children:["SELECT A PLAYLIST TO ADD ",i.toUpperCase()," TO"]}),e?Object.values(e).reverse().map((l,u)=>h.jsx(lg,{id:l._id,index:u,name:l.name,username:l.username,tracks:l.tracks},u)):h.jsx(h.Fragment,{}),h.jsx(bM,{onClick:()=>{r(!1),s(null)},children:"CLOSE"}),h.jsx(SM,{children:a})]})})}):h.jsx(h.Fragment,{})},t?"show":"hide")})}const CM=C.div`
+`;function CM(){const{Playlists:{playlists:e,showAddToPlaylist:t,setShowAddToPlaylist:r,addToPlaylistID:n,addToPlaylistTitle:i,addToPlaylistLoading:o,addToPlaylistMessage:a,setAddToPlaylistMessage:s}}=Q();return h.jsx(Hr,{children:h.jsx(Gr,{timeout:300,classNames:"fade",children:t?h.jsx(xM,{children:o?h.jsx(Pt,{}):h.jsx(h.Fragment,{children:h.jsxs(wM,{className:"border",children:[h.jsxs(ve,{children:["SELECT A PLAYLIST TO ADD ",i.toUpperCase()," TO"]}),h.jsx(bM,{children:e?Object.values(e).reverse().map((l,u)=>h.jsx(lg,{id:l._id,index:u,name:l.name,username:l.username,tracks:l.tracks},u)):h.jsx(h.Fragment,{})}),h.jsx(SM,{onClick:()=>{r(!1),s(null)},children:"CLOSE"}),h.jsx(_M,{children:a})]})})}):h.jsx(h.Fragment,{})},t?"show":"hide")})}const EM=C.div`
     position: relative;
     padding-inline: 3rem;
     margin-bottom: 2rem;
@@ -1843,11 +1847,11 @@ font-size: 3rem;
     color: white;
     text-decoration: underline;
   }
-`;const EM=C.div`
+`;const PM=C.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-`;function PM(){const{Playlists:{publicPlaylists:e,loading:t}}=Q(),r=_.useRef([]);return _.useEffect(()=>{e&&(ie.set([r.current],{opacity:0,y:25}),ie.to([r.current],{opacity:1,y:0,stagger:.05,duration:.3,ease:"power3.out"}))},[e]),h.jsxs(CM,{children:[t?h.jsx(Pt,{}):h.jsx(h.Fragment,{children:h.jsx(ve,{ref:n=>r.current[0]=n,children:"PUBLIC PLAYLISTS"})}),h.jsx(EM,{children:e?Object.values(e).reverse().map((n,i)=>h.jsx(lg,{ref:o=>r.current[i+1]=o,id:n._id,index:i,name:n.name,username:n.username,tracks:n.tracks,publicplaylist:n.public},i)):h.jsx(h.Fragment,{})})]})}const DM=C.div`
+`;function DM(){const{Playlists:{publicPlaylists:e,loading:t}}=Q(),r=_.useRef([]);return _.useEffect(()=>{e&&(ie.set([r.current],{opacity:0,y:25}),ie.to([r.current],{opacity:1,y:0,stagger:.05,duration:.3,ease:"power3.out"}))},[e]),h.jsxs(EM,{children:[t?h.jsx(Pt,{}):h.jsx(h.Fragment,{children:h.jsx(ve,{ref:n=>r.current[0]=n,children:"PUBLIC PLAYLISTS"})}),h.jsx(PM,{children:e?Object.values(e).reverse().map((n,i)=>h.jsx(lg,{ref:o=>r.current[i+1]=o,id:n._id,index:i,name:n.name,username:n.username,tracks:n.tracks,publicplaylist:n.public},i)):h.jsx(h.Fragment,{})})]})}const TM=C.div`
     position: relative;
     display: grid;
     grid-template-columns: 25rem 1fr;
@@ -1856,7 +1860,7 @@ font-size: 3rem;
     @media (max-width: 1500px) {
         grid-template-columns: 1fr;
     }
-`,TM=C.div`
+`,IM=C.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -1865,19 +1869,19 @@ font-size: 3rem;
     background-color: #000;
     opacity: 0.7;
     z-index: 5;
-`,IM=C.div`
+`,AM=C.div`
     height: 100vh;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-`,AM=C.div`
+`,OM=C.div`
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 
-`;function OM(){const{fetchNewReleases:e,fetchTopTracks:t,fetchGenres:r,fetchFavoriteIDs:n}=gN(),{Search:{searchOpen:i,setSearchOpen:o},Sidebar:{showSidebar:a,setShowSidebar:s},User:{guest:l}}=Q(),{fetchPlaylists:u,fetchPublicPlaylists:c}=na();return _.useEffect(()=>{e(),t(),r(),n(),u(),c()},[]),h.jsxs(DM,{children:[h.jsx(AM,{children:h.jsx(_M,{})}),(i||a)&&h.jsx(TM,{onClick:()=>{o(!1),s(!1)}}),h.jsx(Hk,{}),h.jsxs(IM,{children:[h.jsx(mN,{}),h.jsxs(xD,{children:[h.jsx(Tt,{path:"/",element:h.jsx(fy,{}),index:!0}),h.jsx(Tt,{path:"/toptracks",element:h.jsx(f_,{})}),h.jsx(Tt,{path:"/genres",element:h.jsx(PN,{})}),h.jsx(Tt,{path:"/album/:id",element:h.jsx(UN,{})}),h.jsx(Tt,{path:"/artist/:id",element:h.jsx(n6,{})}),h.jsx(Tt,{path:"/playlist/:id",element:h.jsx(yM,{})}),h.jsx(Tt,{path:"/playlists",element:h.jsx(PM,{})}),!l&&h.jsxs(h.Fragment,{children:[h.jsx(Tt,{path:"/recents",element:h.jsx(c6,{})}),h.jsx(Tt,{path:"/likedalbums",element:h.jsx(f6,{})}),h.jsx(Tt,{path:"/likedtracks",element:h.jsx(m6,{})}),h.jsx(Tt,{path:"/myplaylists",element:h.jsx(tM,{})}),h.jsx(Tt,{path:"/settings",element:h.jsx(z6,{})})]}),h.jsx(Tt,{path:"*",element:h.jsx(fy,{})})]})]})]})}const RM=C.div`
+`;function RM(){const{fetchNewReleases:e,fetchTopTracks:t,fetchGenres:r,fetchFavoriteIDs:n}=gN(),{Search:{searchOpen:i,setSearchOpen:o},Sidebar:{showSidebar:a,setShowSidebar:s},User:{guest:l}}=Q(),{fetchPlaylists:u,fetchPublicPlaylists:c}=na();return _.useEffect(()=>{e(),t(),r(),n(),u(),c()},[]),h.jsxs(TM,{children:[h.jsx(OM,{children:h.jsx(CM,{})}),(i||a)&&h.jsx(IM,{onClick:()=>{o(!1),s(!1)}}),h.jsx(Hk,{}),h.jsxs(AM,{children:[h.jsx(mN,{}),h.jsxs(xD,{children:[h.jsx(Tt,{path:"/",element:h.jsx(fy,{}),index:!0}),h.jsx(Tt,{path:"/toptracks",element:h.jsx(f_,{})}),h.jsx(Tt,{path:"/genres",element:h.jsx(PN,{})}),h.jsx(Tt,{path:"/album/:id",element:h.jsx(UN,{})}),h.jsx(Tt,{path:"/artist/:id",element:h.jsx(n6,{})}),h.jsx(Tt,{path:"/playlist/:id",element:h.jsx(yM,{})}),h.jsx(Tt,{path:"/playlists",element:h.jsx(DM,{})}),!l&&h.jsxs(h.Fragment,{children:[h.jsx(Tt,{path:"/recents",element:h.jsx(c6,{})}),h.jsx(Tt,{path:"/likedalbums",element:h.jsx(f6,{})}),h.jsx(Tt,{path:"/likedtracks",element:h.jsx(m6,{})}),h.jsx(Tt,{path:"/myplaylists",element:h.jsx(tM,{})}),h.jsx(Tt,{path:"/settings",element:h.jsx(z6,{})})]}),h.jsx(Tt,{path:"*",element:h.jsx(fy,{})})]})]})]})}const jM=C.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1885,13 +1889,13 @@ font-size: 3rem;
   width: 40rem;
   margin-bottom: 2rem;
   /* height: 60rem; */
-`,jM=C.p`
+`,kM=C.p`
   font-size: 8.4rem;
   letter-spacing: -2px;
   font-weight: 600;
   margin-bottom: 2rem;
   color: #fff;
-`,kM=C.p`
+`,NM=C.p`
   font-size: 1.6rem;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -1915,7 +1919,7 @@ font-size: 3rem;
   transform: translateY(-50%);
   color: #fff;
   font-size: 1.6rem;
-`,NM=C.button`
+`,MM=C.button`
   width: 100%;
   height: 4rem;
   background-color: #0b090a;
@@ -1931,7 +1935,7 @@ font-size: 3rem;
     background-color: #fff;
     color: #0b090a;
   }
-`,MM=C.div`
+`,LM=C.div`
   width: 100%;
   height: 4rem;
   display: flex;
@@ -1941,27 +1945,27 @@ font-size: 3rem;
 `,Ji=C.p`
   font-size: 1.4rem;
   color: #ff4d4d;
-`,LM=C.form`
+`,FM=C.form`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;C.div`
   
-`;function FM(){const{register:e,handleSubmit:t,setError:r,formState:{errors:n}}=sg(),{Auth:{error:i,setError:o,loading:a},User:{loggedIn:s}}=Q(),{registerUser:l}=Js();_.useEffect(()=>{localStorage.clear(),o(null)},[]);const u=c=>{if(c.password!==c.password2){r("password2",{type:"manual",message:"Passwords don't match"});return}if(c.username.length<4||c.username.length>15){r("username",{type:"manual",message:"Username must be between 4 and 15 characters"});return}if(c.password.length<5||c.password2.length<5){r("password",{type:"manual",message:"Password must be at least 5 characters"});return}l(c)};return h.jsxs(RM,{children:[h.jsx(jM,{children:"Benjo"}),h.jsx(kM,{children:"REGISTER"}),h.jsxs(LM,{onSubmit:t(u),children:[h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Lw,{})}),h.jsx(ya,{disabled:a,...e("username",{required:"Please enter a username"}),placeholder:"Username"})]}),n.username&&h.jsx(Ji,{children:n.username.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(bp,{})}),h.jsx(ya,{disabled:a,...e("password",{required:"Please enter a password"}),type:"password",placeholder:"Password"})]}),n.password&&h.jsx(Ji,{children:n.password.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(bp,{})}),h.jsx(ya,{disabled:a,...e("password2",{required:"Please confirm your password"}),type:"password",placeholder:"Password again"})]}),n.password2&&h.jsx(Ji,{children:n.password2.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Ru,{})}),h.jsx(ya,{disabled:a,...e("clientID",{required:"Please enter a Spotify Client ID"}),placeholder:"Spotify Client ID"})]}),n.clientID&&h.jsx(Ji,{children:n.clientID.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Ru,{})}),h.jsx(ya,{disabled:a,...e("clientSecret",{required:"Please enter a Spotify Client Secret"}),placeholder:"Spotify Client Secret"})]}),n.clientSecret&&h.jsx(Ji,{children:n.clientSecret.message}),a?h.jsx(MM,{children:h.jsx(rg,{})}):h.jsx(NM,{type:"submit",className:"border",disabled:a,children:"REGISTER"}),i&&h.jsx(Ji,{children:i})]})]})}const zM=C.div`
+`;function zM(){const{register:e,handleSubmit:t,setError:r,formState:{errors:n}}=sg(),{Auth:{error:i,setError:o,loading:a},User:{loggedIn:s}}=Q(),{registerUser:l}=Js();_.useEffect(()=>{localStorage.clear(),o(null)},[]);const u=c=>{if(c.password!==c.password2){r("password2",{type:"manual",message:"Passwords don't match"});return}if(c.username.length<4||c.username.length>15){r("username",{type:"manual",message:"Username must be between 4 and 15 characters"});return}if(c.password.length<5||c.password2.length<5){r("password",{type:"manual",message:"Password must be at least 5 characters"});return}l(c)};return h.jsxs(jM,{children:[h.jsx(kM,{children:"Benjo"}),h.jsx(NM,{children:"REGISTER"}),h.jsxs(FM,{onSubmit:t(u),children:[h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Lw,{})}),h.jsx(ya,{disabled:a,...e("username",{required:"Please enter a username"}),placeholder:"Username"})]}),n.username&&h.jsx(Ji,{children:n.username.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(bp,{})}),h.jsx(ya,{disabled:a,...e("password",{required:"Please enter a password"}),type:"password",placeholder:"Password"})]}),n.password&&h.jsx(Ji,{children:n.password.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(bp,{})}),h.jsx(ya,{disabled:a,...e("password2",{required:"Please confirm your password"}),type:"password",placeholder:"Password again"})]}),n.password2&&h.jsx(Ji,{children:n.password2.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Ru,{})}),h.jsx(ya,{disabled:a,...e("clientID",{required:"Please enter a Spotify Client ID"}),placeholder:"Spotify Client ID"})]}),n.clientID&&h.jsx(Ji,{children:n.clientID.message}),h.jsxs(va,{className:"border",children:[h.jsx(xa,{children:h.jsx(Ru,{})}),h.jsx(ya,{disabled:a,...e("clientSecret",{required:"Please enter a Spotify Client Secret"}),placeholder:"Spotify Client Secret"})]}),n.clientSecret&&h.jsx(Ji,{children:n.clientSecret.message}),a?h.jsx(LM,{children:h.jsx(rg,{})}):h.jsx(MM,{type:"submit",className:"border",disabled:a,children:"REGISTER"}),i&&h.jsx(Ji,{children:i})]})]})}const BM=C.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 40rem;
   margin-bottom: 2rem;
-`,BM=C.p`
+`,$M=C.p`
   font-size: 8.4rem;
   letter-spacing: -2px;
   font-weight: 600;
   margin-bottom: 2rem;
   color: #fff;
-`,$M=C.p`
+`,UM=C.p`
   font-size: 1.6rem;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -1985,7 +1989,7 @@ font-size: 3rem;
   transform: translateY(-50%);
   color: #fff;
   font-size: 1.6rem;
-`,UM=C.button`
+`,VM=C.button`
   width: 100%;
   height: 4rem;
   background-color: #0b090a;
@@ -2001,7 +2005,7 @@ font-size: 3rem;
     background-color: #fff;
     color: #0b090a;
   }
-`,VM=C.div`
+`,WM=C.div`
   width: 100%;
   height: 4rem;
   display: flex;
@@ -2011,12 +2015,12 @@ font-size: 3rem;
 `,gf=C.p`
   font-size: 1.4rem;
   color: #ff4d4d;
-`,WM=C.form`
+`,GM=C.form`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;function GM(){const{register:e,handleSubmit:t,formState:{errors:r}}=sg(),{Auth:{error:n,loading:i,setError:o}}=Q(),{loginUser:a}=Js();_.useEffect(()=>{localStorage.clear(),o(null)},[]);const s=l=>{a(l)};return h.jsxs(zM,{children:[h.jsx(BM,{children:"Benjo"}),h.jsx($M,{children:"LOGIN"}),h.jsxs(WM,{onSubmit:t(s),children:[h.jsxs(Oy,{className:"border",children:[h.jsx(jy,{children:h.jsx(Lw,{})}),h.jsx(Ry,{disabled:i,...e("username",{required:"Please enter a username"}),placeholder:"Username"})]}),r.username&&h.jsx(gf,{children:r.username.message}),h.jsxs(Oy,{className:"border",children:[h.jsx(jy,{children:h.jsx(bp,{})}),h.jsx(Ry,{disabled:i,...e("password",{required:"Please enter a password"}),type:"password",placeholder:"Password"})]}),r.password&&h.jsx(gf,{children:r.password.message}),i?h.jsx(VM,{children:h.jsx(rg,{})}):h.jsx(UM,{type:"submit",className:"border",disabled:i,children:"LOGIN"}),n&&h.jsx(gf,{children:n})]})]})}const HM=C.div`
+`;function HM(){const{register:e,handleSubmit:t,formState:{errors:r}}=sg(),{Auth:{error:n,loading:i,setError:o}}=Q(),{loginUser:a}=Js();_.useEffect(()=>{localStorage.clear(),o(null)},[]);const s=l=>{a(l)};return h.jsxs(BM,{children:[h.jsx($M,{children:"Benjo"}),h.jsx(UM,{children:"LOGIN"}),h.jsxs(GM,{onSubmit:t(s),children:[h.jsxs(Oy,{className:"border",children:[h.jsx(jy,{children:h.jsx(Lw,{})}),h.jsx(Ry,{disabled:i,...e("username",{required:"Please enter a username"}),placeholder:"Username"})]}),r.username&&h.jsx(gf,{children:r.username.message}),h.jsxs(Oy,{className:"border",children:[h.jsx(jy,{children:h.jsx(bp,{})}),h.jsx(Ry,{disabled:i,...e("password",{required:"Please enter a password"}),type:"password",placeholder:"Password"})]}),r.password&&h.jsx(gf,{children:r.password.message}),i?h.jsx(WM,{children:h.jsx(rg,{})}):h.jsx(VM,{type:"submit",className:"border",disabled:i,children:"LOGIN"}),n&&h.jsx(gf,{children:n})]})]})}const YM=C.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2028,10 +2032,10 @@ font-size: 3rem;
   font-weight: 300;
   margin-bottom: 2rem;
   color: #c3c3c3;
-`,YM=C.a`
+`,qM=C.a`
   color: #fff;
   text-decoration: underline;
-`;function qM(){return h.jsxs(HM,{children:[h.jsxs(li,{children:["1. visit ",h.jsx(YM,{href:"https://developer.spotify.com/",target:"_blank",children:"https://developer.spotify.com/"})]}),h.jsx(li,{children:'2. Click on the "Log in" button on the upper right corner and sign in with your spotify account.'}),h.jsx(li,{children:"3. After signing in, access the dashboard from your profile tab (located at the same place as the login button before)"}),h.jsx(li,{children:'4. Click on the purple "Create App" button on the right side.'}),h.jsx(li,{children:"5. Enter a name, a description and a URL. It can be anything as it is meaningless."}),h.jsx(li,{children:'6. After creating your app, click on the "settings" button located on the right side, and there you will be able to find you client ID and client Secret.'}),h.jsx(li,{children:"Benjo offers more freedom and functionality for signed in users, so it is recommended to complete these steps to aquire private access."})]})}const QM=C.div`
+`;function QM(){return h.jsxs(YM,{children:[h.jsxs(li,{children:["1. visit ",h.jsx(qM,{href:"https://developer.spotify.com/",target:"_blank",children:"https://developer.spotify.com/"})]}),h.jsx(li,{children:'2. Click on the "Log in" button on the upper right corner and sign in with your spotify account.'}),h.jsx(li,{children:"3. After signing in, access the dashboard from your profile tab (located at the same place as the login button before)"}),h.jsx(li,{children:'4. Click on the purple "Create App" button on the right side.'}),h.jsx(li,{children:"5. Enter a name, a description and a URL. It can be anything as it is meaningless."}),h.jsx(li,{children:'6. After creating your app, click on the "settings" button located on the right side, and there you will be able to find you client ID and client Secret.'}),h.jsx(li,{children:"Benjo offers more freedom and functionality for signed in users, so it is recommended to complete these steps to aquire private access."})]})}const XM=C.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2050,12 +2054,12 @@ font-size: 3rem;
         text-decoration: underline;
         color: #fff;
     }
-`,XM=C.div`
+`,KM=C.div`
     position: relative;
     width: 50rem;
     border-bottom: 1px solid #dddddd30;
     margin-block: 2rem;
-`,KM=C.p`
+`,JM=C.p`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2064,7 +2068,7 @@ font-size: 3rem;
     font-size: 1.6rem;
     background-color: #000;
     padding-inline: 1rem;
-`;function JM(){const{Auth:{showLogin:e,setShowLogin:t,setError:r,setGuide:n,showGuide:i},User:{setLoggedIn:o,setGuest:a}}=Q(),s=()=>{localStorage.setItem("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGYxZjAyOWQyMDBmMzJjYjM0YTFhNiIsImlhdCI6MTcyNTg5ODQ5OSwiZXhwIjoyNTg5ODEyMDk5fQ.M3tenA1zDHst90kqQqYEQ0vBfn3gdt10OHrTMuKzr1g"),setTimeout(()=>{o(!0),a(!0)},1)};return h.jsxs(QM,{children:[i?h.jsx(qM,{}):h.jsxs(h.Fragment,{children:[e?h.jsx(GM,{}):h.jsx(FM,{}),h.jsxs(vf,{onClick:()=>{t(!e),r(null)},children:["SWITCH TO ",e?"REGISTER":"LOGIN"]})]}),h.jsx(vf,{onClick:()=>n(!i),children:i?"HIDE GUIDE":"HOW TO GET SPOTIFY ACCESS"}),h.jsx(XM,{children:h.jsx(KM,{children:"OR"})}),h.jsx(vf,{onClick:s,children:"CONTINUE AS GUEST"})]})}const ZM=C.div`
+`;function ZM(){const{Auth:{showLogin:e,setShowLogin:t,setError:r,setGuide:n,showGuide:i},User:{setLoggedIn:o,setGuest:a}}=Q(),s=()=>{localStorage.setItem("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGYxZjAyOWQyMDBmMzJjYjM0YTFhNiIsImlhdCI6MTcyNTg5ODQ5OSwiZXhwIjoyNTg5ODEyMDk5fQ.M3tenA1zDHst90kqQqYEQ0vBfn3gdt10OHrTMuKzr1g"),setTimeout(()=>{o(!0),a(!0)},1)};return h.jsxs(XM,{children:[i?h.jsx(QM,{}):h.jsxs(h.Fragment,{children:[e?h.jsx(HM,{}):h.jsx(zM,{}),h.jsxs(vf,{onClick:()=>{t(!e),r(null)},children:["SWITCH TO ",e?"REGISTER":"LOGIN"]})]}),h.jsx(vf,{onClick:()=>n(!i),children:i?"HIDE GUIDE":"HOW TO GET SPOTIFY ACCESS"}),h.jsx(KM,{children:h.jsx(JM,{children:"OR"})}),h.jsx(vf,{onClick:s,children:"CONTINUE AS GUEST"})]})}const eL=C.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2072,12 +2076,12 @@ font-size: 3rem;
     width:100%;
     height: 100vh;
     background-color: #000;
-`,eL=C.p`
+`,tL=C.p`
     color: #fff;
     font-size: 2rem;
     font-weight: 600;
     transform: translateY(80px);
-`;function tL(){const{getStatus:e}=Js();return _.useEffect(()=>{e()}),h.jsxs(ZM,{children:[h.jsx(Pt,{}),h.jsx(eL,{children:"Api is loading..."})]})}const rL=()=>{const e=document.querySelector(".preloader");console.log(e),e&&e.remove()},nL=C.div`
+`;function rL(){const{getStatus:e}=Js();return _.useEffect(()=>{e()}),h.jsxs(eL,{children:[h.jsx(Pt,{}),h.jsx(tL,{children:"Api is loading..."})]})}const nL=()=>{const e=document.querySelector(".preloader");console.log(e),e&&e.remove()},iL=C.div`
   background-color: #0b090a;
   width: 100%;
   height: 100vh;
@@ -2087,7 +2091,7 @@ font-size: 3rem;
   @media (max-width: 1200px) {
     opacity: 0;
   }
-`,iL=C.div`
+`,oL=C.div`
   display: none;
   width: 100%;
   height: 100vh;
@@ -2102,4 +2106,4 @@ font-size: 3rem;
   @media (max-width: 1200px) {
     display: flex;
   }
-`;function oL(){const{User:{loggedIn:e},APICheck:{status:t}}=Q();return _.useEffect(()=>{rL()},[]),h.jsx(h.Fragment,{children:t?e?h.jsxs(DD,{children:[h.jsx(iL,{children:"Benjo requires a minimum screen width of 1200px"}),h.jsxs(nL,{children:[h.jsx(OM,{}),h.jsx(Zj,{})]})]}):h.jsx(JM,{}):h.jsx(tL,{})})}yf.createRoot(document.getElementById("root")).render(h.jsx(oL,{}));
+`;function aL(){const{User:{loggedIn:e},APICheck:{status:t}}=Q();return _.useEffect(()=>{nL()},[]),h.jsx(h.Fragment,{children:t?e?h.jsxs(DD,{children:[h.jsx(oL,{children:"Benjo requires a minimum screen width of 1200px"}),h.jsxs(iL,{children:[h.jsx(RM,{}),h.jsx(Zj,{})]})]}):h.jsx(ZM,{}):h.jsx(rL,{})})}yf.createRoot(document.getElementById("root")).render(h.jsx(aL,{}));
